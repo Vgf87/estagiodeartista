@@ -1,54 +1,82 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
-<meta http-equiv="Content-Language" content="pt-br">
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>Início Objetos de Aprendizagem Poéticos</title>
-<meta name="keywords" content="Objetos de Aprendizagem, ensino das artes visuais, metodologia de ensino">
-<meta name="description" content="Objetos de Aprendizagem Poéticos para o ensino das artes visuais">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="pt-br">
+    <meta name="keywords" content="Objetos de Aprendizagem, ensino das artes visuais, metodologia de ensino">
+    <meta name="description" content="Objetos de Aprendizagem Poéticos para o ensino das artes visuais">
+    <title>Início Objetos de Aprendizagem Poéticos</title>
+    <style>
+        body {
+            background-image: url('xadrez_azul.jpg');
+            font-family: 'High Tower Text', serif;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+        }
+        .image-link {
+            position: absolute;
+        }
+        #camada2 { left: 509px; top: 166px; width: 173px; height: 171px; }
+        #camada12 { left: -513px; top: 36px; width: 169px; height: 100px; }
+        #camada14 { left: 680px; top: -6px; width: 170px; height: 171px; }
+        #camada7 { left: 390px; top: 205px; width: 72px; height: 100px; }
+        #camada4 { left: 338px; top: 338px; width: 171px; height: 170px; }
+        #camada6 { left: 509px; top: 52px; width: 170px; height: 100px; }
+        #camada5 { left: 681px; top: 339px; width: 171px; height: 170px; }
+        #camada8 { left: 682px; top: 204px; width: 170px; height: 100px; }
+        #camada9 { left: 511px; top: 373px; width: 169px; height: 100px; }
+        #camada11 { left: 338px; top: 0px; width: 171px; height: 167px; }
+    </style>
 </head>
 
-<body background="xadrez_azul.jpg">
-
-<div style="position: absolute; width: 173px; height: 171px; z-index: 2; left: 509px; top: 166px" id="camada2">
-	<div style="position: absolute; width: 169px; height: 100px; z-index: 1; left: -513px; top: 36px" id="camada12">
-		<p align="center">&nbsp;</p>
-		<p align="center"><a href="mapa.htm" style="text-decoration: none">
-		<font face="High Tower Text" color="#663300">O curso</font></a></div>
-	<a href="1/1_oaps.htm">
-	<img border="0" src="inicio_aprender_p.jpg" width="172" height="172"></a></div>
-<p>&nbsp;</p>
-<div style="position: absolute; width: 170px; height: 171px; z-index: 12; left: 680px; top: -6px" id="camada14">
-	<a href="2/explora_oap.htm">
-	<img border="0" src="2_OAP_explorar_grande.jpg" width="165" height="165"></a></div>
-<div style="position: absolute; width: 72px; height: 100px; z-index: 7; left: 390px; top: 205px" id="camada7">
-&nbsp;<p align="center"><b>
-	<font size="4" color="#663300" face="High Tower Text">DE</font></b></div>
-<p>&nbsp;</p>
-<div style="position: absolute; width: 171px; height: 170px; z-index: 4; left: 338px; top: 338px" id="camada4">
-	<a href="3/desenvolvimento_oap.htm">
-	<img border="0" src="3_OAP_desenvolver_grande.jpg" width="165" height="165"></a></div>
-<div style="position: absolute; width: 170px; height: 100px; z-index: 6; left: 509px; top: 52px" id="camada6">
-&nbsp;<p align="center"><b>
-	<font face="High Tower Text" size="4" color="#663300">OBJETOS </font></b>
-</div>
-<p align="center">&nbsp;</p>
-<p align="center">&nbsp;</p>
-<div style="position: absolute; width: 171px; height: 170px; z-index: 5; left: 681px; top: 339px" id="camada5">
-	<a href="4/avaliar_oap.htm">
-	<img border="0" src="4_OAP_avaliar_grande.jpg" width="165" height="165"></a></div>
-<p>&nbsp;</p>
-<div style="position: absolute; width: 170px; height: 100px; z-index: 8; left: 682px; top: 204px" id="camada8">
-&nbsp;<p align="center"><font face="High Tower Text" color="#663300" size="4">
-	<b>APRENDIZAGEM</b></font></div>
-<div style="position: absolute; width: 169px; height: 100px; z-index: 9; left: 511px; top: 373px" id="camada9">
-&nbsp;<p align="center"><b>
-	<font color="#663300" size="4" face="High Tower Text">POÉTICOS</font></b></div>
-<div style="position: absolute; width: 171px; height: 167px; z-index: 10; left: 338px; top: 0px" id="camada11">
-	<a href="1/1_oaps.htm">
-	<img border="0" src="1_OAP_grande.jpg" width="165" height="165"></a></div>
-<p>&nbsp;</p>
-
+<body>
+    <div class="container">
+        <div class="image-link" id="camada2">
+            <a href="1/1_oaps.htm">
+                <img src="inicio_aprender_p.jpg" width="172" height="172" alt="Início">
+            </a>
+            <div id="camada12">
+                <p align="center"><a href="mapa.htm" style="text-decoration: none; color: #663300;">O curso</a></p>
+            </div>
+        </div>
+        <div class="image-link" id="camada14">
+            <a href="2/explora_oap.htm">
+                <img src="2_OAP_explorar_grande.jpg" width="165" height="165" alt="Explorar">
+            </a>
+        </div>
+        <div class="image-link" id="camada7">
+            <p align="center" style="color: #663300; font-size: 1.5em;"><b>DE</b></p>
+        </div>
+        <div class="image-link" id="camada4">
+            <a href="3/desenvolvimento_oap.htm">
+                <img src="3_OAP_desenvolver_grande.jpg" width="165" height="165" alt="Desenvolver">
+            </a>
+        </div>
+        <div class="image-link" id="camada6">
+            <p align="center" style="color: #663300; font-size: 1.5em;"><b>OBJETOS</b></p>
+        </div>
+        <div class="image-link" id="camada5">
+            <a href="4/avaliar_oap.htm">
+                <img src="4_OAP_avaliar_grande.jpg" width="165" height="165" alt="Avaliar">
+            </a>
+        </div>
+        <div class="image-link" id="camada8">
+            <p align="center" style="color: #663300; font-size: 1.5em;"><b>APRENDIZAGEM</b></p>
+        </div>
+        <div class="image-link" id="camada9">
+            <p align="center" style="color: #663300; font-size: 1.5em;"><b>POÉTICOS</b></p>
+        </div>
+        <div class="image-link" id="camada11">
+            <a href="1/1_oaps.htm">
+                <img src="1_OAP_grande.jpg" width="165" height="165" alt="Objetos de Aprendizagem">
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
+
