@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The page you were looking for doesn't exist (404)</title>
+    <link href="http://fonts.googleapis.com/css?family=Paytone+One&amp;v1" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/screen.css?1309182403" media="screen" rel="stylesheet" type="text/css" /> 
+    <link href="/stylesheets/print.css?1308826422" media="print" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body>
+    <!-- This file lives in public/404.html -->
+    <div id="container">
+      <div id="header">
+      <div id="print-logo"><img src="/images/yoyo_logo_tag2.png" alt="YoYo Games - Putting You In The Game" /></div>
+      <div id="yoyo"><a href="/"></a></div>
+    </div>
+    <div class="clear"></div>
+    
+    <div id="columns">
+      <div class="main wide">
+        <h2>The page you were looking for doesn't exist</h2>
+        <div class="body">
+          <p>You may have mistyped the address or the page may have moved.</p>
+          <p>If this error persists, or if you followed a link to get here, please <a href="/help/contact">let us know</a>.</p>
+        </div>
+        <div class="footer">
+          <a href="/">Back to the homepage</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="clear"></div>
+    
+    <div id="footer">
+      <p class="links">
+        <a href="/help/terms">Terms &amp; Conditions</a>&nbsp;|&nbsp;
+        <a href="/help/privacy">Privacy guidelines</a>&nbsp;|&nbsp;
+        <a href="/help/about">About us</a>&nbsp;|&nbsp;
+        <a href="/help/contact">Contact us</a>
+      </p>
+      <p>
+        Copyright &copy; 2007-2011 YoYo Games Ltd. All rights reserved.
+      </p>
+    </div>
+  </body>
+</html>

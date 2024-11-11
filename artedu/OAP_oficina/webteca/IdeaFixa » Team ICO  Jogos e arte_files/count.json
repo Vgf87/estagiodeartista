@@ -1,0 +1,6 @@
+{'status': "failure",
+ 'code': 13,
+ 'data': null,
+ 'generated_at': null,
+ 'message': "The Pinterest server is having trouble. Please try again later."
+}

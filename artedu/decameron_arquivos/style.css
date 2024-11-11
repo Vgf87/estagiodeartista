@@ -1,0 +1,827 @@
+@import "reset.css";
+
+/***  GENERAL PAGE STYLES  ********/
+
+html, body {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	height: 100%;
+	line-height: 1.6em;
+	color: #333;
+	background-color: #fff;
+}
+
+:focus {
+  -moz-outline-style: none;
+}
+
+a {
+	color: #a84936;
+}
+
+a:hover {
+	color: #4d3027;
+}
+
+a:active {
+	position: relative;
+	top: 1px;
+}
+
+p, blockquote {
+	margin-bottom: 1em;
+}
+
+h2 {
+	font-family: "Cambria", Georgia, Times New Roman, serif;
+}
+
+h2 {
+	color: #4d3027;
+	font-size: 1.7em;
+	font-weight: normal;
+	margin-bottom: .7em;
+}
+
+h3 {
+	color: #a84936;
+	font-size: 1.1em;
+}
+
+h3 span.unbold {
+	color: #333;
+	font-weight: normal;
+}
+
+h3.break {
+	margin-bottom: 1em;
+}
+
+h4 {
+	margin-bottom: 1em;
+}
+
+.center {
+	text-align: center;
+}
+
+fieldset {
+	border: none;
+	margin-bottom: 4px;
+}
+
+ul {
+	margin-bottom: 1em;
+}
+
+ul ul {
+	margin-bottom: 0;
+}
+
+li {
+	line-height: 1.9em;
+}
+
+input {
+	margin-right: .8em;
+}
+
+ol {
+	list-style: decimal;
+	margin-left: 3em;
+	margin-bottom: 1em;
+}
+
+ol.footenotes {
+	margin-left: 2em;
+}
+
+blockquote {
+	margin-left: 3em;
+}
+
+ul.bibliography {
+	margin-left: 3em;
+}
+
+ul.bibliography li {
+	margin-bottom: .5em;
+	text-indent: -3em;
+}
+
+hr {
+	border: 0;
+	margin: 2em 50em 1.6em 0;
+	border-bottom: 1px solid #333;
+}
+
+sup {
+	vertical-align: super;
+	font-size: .8em;
+	line-height: 1em;
+}
+
+table td {
+	padding-right: 1em;
+	padding-bottom: .6em;
+}
+
+div.row {
+	clear: both;
+}
+
+h2 span.cite {
+	font-size: .8em;
+}
+
+/* used in text searches to highlight found words */
+.hilit 
+{
+	color: #A84936;
+	font-weight: bold;
+}
+
+/* Image Styles */
+
+.image_right, .image_left, .image_center {
+	margin-bottom: 20px;	
+}
+
+.image_right {
+	float: right;
+	margin-left: 20px;
+}
+
+.image_left {
+	float: left;
+	margin-right: 20px;
+}
+
+.image_center {
+	text-align: center;
+}
+
+.image_right img, .image_left img, .image_center img {
+	background-color: #fff;
+	border: 1px solid #cdcbab;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.image_right img {
+	float: right;
+}
+
+.image_left img {
+	float: left;
+}
+
+.image_right span, image_left span, .image_center span {
+	font-size: 10px;
+	display: block;
+	clear: both;
+}
+
+/***  CONTAINER  ***/
+
+#container {
+	overflow: hidden;
+	background: #edf2cc url(../images/page_elements/sidebar_background.png) repeat-y;
+	width: 908px;
+	height: auto !important; /* "!important" retains scrolling on long pages*/
+	height: 100%;
+	/*min-height: 100%; -- taking this out crops short pages but doesn't repeat green bg below */
+	padding: 0 20px 40px 20px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
+#shadow_left {
+	background-image: url(../images/page_elements/outside_shadow_left.png);
+	width: 31px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+}
+
+#shadow_right {
+	background-image: url(../images/page_elements/outside_shadow_right.png);
+	width: 31px;
+	height: 100%;
+	position: absolute;
+	right: 0;
+}
+
+/***  HEADER  ***/
+
+#header {
+	height: 101px;
+	background-repeat: no-repeat;
+	background-image: url(../images/page_elements/header.png);
+}
+
+#header h1 {
+	display: block;
+	width: 300px;
+}
+
+#header h1 a {
+	width: 260px;
+	height: 40px;
+	display: block;
+	float: left;
+	margin-left: 10px;
+	margin-top: 24px;
+	text-indent: -9000px;
+}
+
+#header h1 a:hover {
+	border: none;
+}
+
+#header #search_field {
+	display: block;
+	width: 250px;
+	float: right;
+	margin: 30px 14px 0 0;
+/*	position: absolute;
+	top: 32px;
+	right: 28px;*/
+}
+
+#header #search_field input {
+	float: right;
+	border: 1px solid #edf2cc;
+	background: #fff url(../images/page_elements/site_search.png) no-repeat 4px 2px;
+}
+
+#header #search_field input:focus {
+	background-image: none;
+}
+
+#header #search_field a {
+	font-size: 8px;
+	margin-top: -6px;
+	margin-right: 7px;
+	float: right;
+}
+
+/***  SIDEBAR  ***/
+
+#sidebar {
+	width: 201px;
+	float: left;
+}
+
+#sidebar ul {
+	width: 169px;
+	/*height: 355px;  --  original height*/
+	height:450px; /*ensures that short pages won't cut off menu*/
+	background-repeat:no-repeat;
+	background-image: url(../images/page_elements/navigation_back.png);
+	margin-left: 16px;
+	margin-top: 9px;
+	padding-top: 22px;
+}
+
+#sidebar ul li a {
+	display: block;
+	height: 22px;
+	background-repeat: no-repeat;
+	text-indent: -9000px;
+}
+
+#sidebar ul li a:hover {
+	border: none;
+	background-position: 0 -22px;
+}
+
+#sidebar ul li a.selected {
+	background-position: 0 -44px;
+}
+
+#sidebar ul li#the_project a {
+	background-image: url(../images/nav/the_project.png);
+}
+
+#sidebar ul li#boccaccio a {
+	background-image: url(../images/nav/boccaccio.png);
+}
+
+#sidebar ul li#texts a {
+	background-image: url(../images/nav/texts.png);
+}
+
+#sidebar ul li#search a {
+	background-image: url(../images/nav/search.png);
+}
+
+#sidebar ul li#brigata a {
+	background-image: url(../images/nav/brigata.png);
+}
+
+#sidebar ul li#plague a {
+	background-image: url(../images/nav/plague.png);
+}
+
+#sidebar ul li#literature a {
+	background-image: url(../images/nav/literature.png);
+}
+
+#sidebar ul li#history a {
+	background-image: url(../images/nav/history.png);
+}
+
+#sidebar ul li#society a {
+	background-image: url(../images/nav/society.png);
+}
+
+#sidebar ul li#religion a {
+	background-image: url(../images/nav/religion.png);
+}
+
+#sidebar ul li#arts a {
+	background-image: url(../images/nav/arts.png);
+}
+
+#sidebar ul li#maps a {
+	background-image: url(../images/nav/maps.png);
+}
+
+#sidebar ul li#themes_motifs a {
+	background-image: url(../images/nav/themes_motifs.png);
+}
+
+#sidebar ul li#bibliography a {
+	background-image: url(../images/nav/bibliography.png);
+}
+
+#sidebar ul li#pedagogy a {
+	background-image: url(../images/nav/pedagogy.png);
+}
+
+#sidebar ul li#syllabus a {
+	background-image: url(../images/nav/syllabus.png);
+}
+
+/* Text Search */
+
+#text_search {
+	width: 157px;
+	height: 200px;
+	margin-left: 22px;
+	margin-top: 9px;
+}
+
+#text_search h3 {
+	font-weight: normal;
+	color: #4d3027;
+	margin-bottom: -2px;
+}
+
+#text_search fieldset {
+	font-size: 9px;
+	margin: 3px 0;
+}
+
+#text_search button {
+	font-size: 9px;
+	vertical-align: middle;
+}
+
+#text_search input {
+	font-size: 9px;
+	margin-right: .3em;
+}
+
+#text_search a {
+	display: block;
+	margin-top: -3px;
+	font-size: 9px;
+}
+
+/***  CONTENT PANE  ***/
+
+/* Text Functions */
+
+#text_functions {
+	padding: 2px 10px 0 10px;
+	background-color: #c1c894;
+	font-size: 9px;
+	height: 22px;
+	vertical-align: middle;
+	float: right;
+	margin-right: -20px;
+}
+
+#text_functions fieldset {
+	display: block;
+	margin: -1px 0 1px 0;
+}
+
+#text_functions span {
+	margin-right: 1em;
+}
+
+#text_functions select, #text_functions input#go {
+	font-size: 9px;
+	vertical-align: middle;
+}
+
+#text_functions input {
+	font-size: 9px;
+	margin-right: .3em;
+}
+
+/* Content Pane */
+
+#content_pane {
+	width: 667px;
+	float: left;
+	padding: 15px 20px;
+	padding-bottom: 50px; /* to account for footer */
+}
+
+ul.links {
+	list-style-type: circle;
+	margin-left: 15px;
+	margin-bottom: 1em;
+}
+
+ul.links ul {
+	list-style-type: circle;
+	margin-left: 15px;
+	margin-bottom: 0;
+}
+
+ul.links li a {
+	color: #333;
+	border-bottom: 1px solid #404040;
+}
+
+ul.links li a:visited {
+	color: #333;
+	border-bottom: 1px dotted #404040;
+}
+
+ul.links li a:hover {
+	border-bottom-color: #B3B296;
+}
+	/*pipe separated related links*/
+	ul.relatedLinks{
+		margin-left: 15px;
+		display: block;
+		overflow: auto;
+		width: 100%;
+	}
+		ul.relatedLinks li{
+			list-style-type: none;
+			float: left;
+			margin-left: 5px;
+		}
+		ul.relatedLinks li a {
+			color: #333;
+			border-bottom: 1px solid #404040;
+		}
+		
+		ul.relatedLinks li a:visited {
+			color: #333;
+			border-bottom: 1px dotted #404040;
+		}
+		
+		ul.relatedLinks li a:hover {
+			border-bottom-color: #B3B296;
+		}
+		
+ul#breadcrumbs {
+	height: 22px;
+	background-color: #dddebb;
+	font-size: 9px;
+	border-bottom: 1px solid #cdcbab;
+	border-top: 1px solid #cdcbab;
+	line-height: 22px;
+	padding: 0 20px;
+	margin: 0 -20px 1.5em -20px;
+}
+
+ul#breadcrumbs li {
+	display: inline;
+}
+
+ul#breadcrumbs li a:hover {
+	text-decoration: none;
+}
+
+ul#breadcrumbs li:after {
+	content: " : ";
+}
+
+ul#breadcrumbs li:last-child:after {
+	content: "";
+}
+
+ul#day_navigation {
+	float: right;
+}
+
+ul#day_navigation li {
+	font-size: 10px;
+	display: inline;
+}
+
+p.sequence_links {
+	width: 100%;
+	float: left;
+	clear: both;
+}
+
+.brigata_information {
+	margin-bottom: 3em;
+}
+
+.brigata_information h3 {
+	font-family: "Cambria", Georgia, Times New Roman, serif;
+	font-weight: normal;
+	font-size: 15px;
+	margin-bottom: .5em;
+}
+
+.brigata_information h3 a {
+	border-bottom: 1px dotted #4d3027;
+}
+
+h2.places_mentioned {
+	background-color: #dddebb;
+	border-bottom: 1px solid #cdcbab;
+	border-top: 1px solid #cdcbab;
+	padding: 3px 20px 5px;
+	margin: 0 -20px .5em -20px;
+}
+
+img.map {
+	margin-left: -20px;
+}
+
+/*for floating and two-column layout */
+div.twocolumn {
+	overflow: auto;
+	width: 100%;}
+	
+.left {
+	width: 40%;
+	float: left;}
+.right {
+	width: 50%;
+	float: right;}
+	
+/* for floating paras and making them look like a two column.*/
+div.maps{
+	overflow: auto;
+	width: 100%;
+}
+div.maps > p {
+	float: left;
+	width: 40%;
+	margin-right: 10%;
+	margin-bottom: 20px;
+	height: 200px;
+}
+
+/***  IMAGE BLOCK  ***/
+
+.image_block {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.image_block .image_center {
+	width: 170px;
+	float: left;
+}
+
+.image_block .image_center span {
+	display: block;
+	clear: both;
+}
+
+/***  TEXTS  ***/
+
+#search_results {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 1em 1em 0 1em;
+	margin: 0 0 1.5em 1.5em;
+	float: right;
+}
+
+.highlight {
+	background-color: #ff0;
+	padding: 2px;
+	margin: -2px;
+}
+
+.current {
+	background-color: #f3c9e5;
+	padding: 2px;
+	margin: -2px;
+}
+
+.prev_link {
+	float: left;
+}
+
+.next_link {
+	float: right;
+}
+
+.prev_link, .next_link {
+	padding: 1px 5px 2px 5px;
+}
+
+.prev_link:hover, .next_link:hover {
+	color: #fff;
+	background-color: #737260;
+	border: 0;
+}
+
+.prev_link:active, .next_link:active {
+	color: #fff;
+	background-color: #4d3027;
+	border: 0;
+}
+
+/* tables in browse/search pages */
+
+th.orange {background-color: #ffcc66;}
+td.male {text-align: center; background-color: #cccc99;}
+td.male_color {background-color: #cccc99;}
+td.female {text-align: center; background-color: #f1e8bd;}
+td.female_color {background-color: #f1e8bd;}
+td.ref {text-align:  center;}
+
+/*** Florio ***/
+ul#day_links {
+	height: 22px;
+	background-color: #d1d2b0;
+	font-size: 10px;
+	border-bottom: 1px solid #cdcbab;
+	border-top: 1px solid #cdcbab;
+	line-height: 22px;
+	padding: 0 20px;
+	margin: -1.5em -20px 1.5em -20px;
+}
+
+ul#day_links li {
+	display: inline;
+}
+
+ul#day_links li a:hover {
+	text-decoration: none;
+}
+
+ul#day_links li:after {
+	content: "  |  ";
+	padding:10px;
+}
+
+ul#day_links li:last-child:after {
+	content: "";
+}
+
+.rubric {
+	font-style:italic;
+	color:#777;
+	padding:10px;
+	}
+
+.day {
+	}
+
+.nov {
+
+	}
+
+div.day h3 {
+	padding-top:10px;
+	border-top-style:double;
+	border-top-width: medium;
+	}
+
+/**  .show_hide {
+	font-weight:bold;
+	padding-left:15px;
+	color:#844c41;
+	}   **/
+
+.show {
+       display:inline;
+}
+.hide {
+       display:none;
+}
+
+.indent {
+	padding-left:10px;
+	}
+
+.florioNovList {
+background-color: #cccc99;
+}
+
+
+/***  FOOTER  ***/
+
+#footer {
+	background: #484d30 url(../images/page_elements/footer_background.png) repeat-x;
+	width: 868px;
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fff;
+	padding: 18px 20px 5px 20px;
+	clear: both;
+	position: absolute;
+	bottom: 0;
+	font-size: 10px;
+}
+
+#footer a {
+	color: #fff;
+	padding-bottom: 1px;
+	border-bottom: 1px solid #afa509;
+}
+
+#footer a:hover {
+	color: #c1c894;	
+}
+
+#footer strong {
+	font-family: "Cambria", Georgia, Times New Roman, serif;
+	font-weight: normal;
+	font-style: italic;
+	font-size: 12px;
+}
+
+#footer span#last_modified {
+	color: #c1c894;
+	font-size: 10px;
+	float: right;
+}
+
+#footer span#bottominfo {
+	float: left;
+}
+
+
+/** HOME PAGE **/
+
+#stripe {
+background: #edf2cc url(../images/page_elements/footer_background.png) repeat-x; 
+top:0px;
+bottom: 0px;
+
+
+}
+
+#abovepanorama {
+	position:relative;
+	top:0px;
+	left:0px;
+	padding:20px;
+	height:65px;
+	background-color:#edf2cc;
+}
+
+#panorama {
+    position:relative;
+    top:0px;
+    left:0px;
+    background-image:url("../images/home/bodleian.jpg");
+    height:293px;
+    width:100%;
+    }
+
+#indexcontainer {
+	overflow: hidden;
+	width: 908px;
+	height: auto;
+	height: 100%;
+	min-height: 100%;
+	padding: 0 20px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+   
+#indexcontent {
+	position:relative;
+	top:0px;
+	left:0px;
+	padding:20px;
+	height:100%;
+	background-color:#edf2cc;
+	color:#a69e15;
+	font-style:italic;
+	font-size:1.1em;
+}

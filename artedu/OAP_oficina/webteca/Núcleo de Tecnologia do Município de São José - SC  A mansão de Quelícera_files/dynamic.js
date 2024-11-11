@@ -1,0 +1,10 @@
+_clustrmaps.layer('recent',{'points':[[-10.0000,-55.0000,"BR","Brazil"]],timestamp:'201308060055'});
+_clustrmaps.layer('recent',{'points':[[-23.6000,-48.0500,"BR","Itapetininga"]],timestamp:'201308060050'});
+_clustrmaps.layer('recent',{'points':[[-23.4733,-46.6658,"BR","São Paulo"]],timestamp:'201308060047'});
+_clustrmaps.layer('recent',{'points':[[-19.9167,-43.9333,"BR","Belo Horizonte"]],timestamp:'201308060017'});
+_clustrmaps.layer('recent',{'points':[[-27.5833,-48.5667,"BR","Florianópolis"]],timestamp:'201308060013'});
+_clustrmaps.layer('recent',{'points':[[-26.8833,-48.6500,"BR","Itajaí"]],timestamp:'201308060001'});
+_clustrmaps.layer('recent',{'points':[[-27.6333,-48.6500,"BR","São José"]],timestamp:'201308052357'});
+_clustrmaps.layer('recent',{'points':[[-23.7167,-46.4167,"BR","Ribeirão Pires"]],timestamp:'201308052326'});
+_clustrmaps.layer('recent',{'points':[[-15.0000,-40.4000,"BR","Caatiba"]],timestamp:'201308052325'});
+_clustrmaps.layer('recent',{'points':[[-27.5000,-48.6667,"BR","Biguaçu"]],timestamp:'201308052321'});

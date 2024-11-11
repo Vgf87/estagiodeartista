@@ -1,0 +1,301 @@
+/* AboutMe.Embed.js */
+
+(function(window, document, undefined) {
+	"use strict";
+
+	if (! window.AboutMe) window.AboutMe = {};
+	if (! AboutMe.Embeds) AboutMe.Embeds = [];
+	
+	if (! AboutMe.$) {
+		/*
+			Cross-browser implementation of getElementsByClassName
+			Developed by Robert Nyman, http://www.robertnyman.com
+			Code/licensing: http://code.google.com/p/getelementsbyclassname/
+		*/	
+		AboutMe.$ = function (className, tag, elm) {
+			var getElementsByClassName;
+			if (document.getElementsByClassName) {
+				getElementsByClassName = function (className, tag, elm) {
+					elm = elm || document;
+					var elements = elm.getElementsByClassName(className),
+						nodeName = (tag)? new RegExp("\b" + tag + "\b", "i") : null,
+						returnElements = [],
+						current;
+					for (var i=0, il=elements.length; i<il; i+=1){
+						current = elements[i];
+						if (!nodeName || nodeName.test(current.nodeName)) {
+							returnElements.push(current);
+						}
+					}
+					return returnElements;
+				};
+			} else if (document.evaluate) {
+				getElementsByClassName = function (className, tag, elm) {
+					tag = tag || "*";
+					elm = elm || document;
+					var classes = className.split(" "),
+						classesToCheck = "",
+						xhtmlNamespace = "http://www.w3.org/1999/xhtml",
+						namespaceResolver = (document.documentElement.namespaceURI === xhtmlNamespace)? xhtmlNamespace : null,
+						returnElements = [],
+						elements,
+						node;
+					for (var j=0, jl=classes.length; j<jl; j+=1){
+						classesToCheck += "[contains(concat(' ', @class, ' '), ' " + classes[j] + " ')]";
+					}
+					try	{
+						elements = document.evaluate(".//" + tag + classesToCheck, elm, namespaceResolver, 0, null);
+					}
+					catch (e) {
+						elements = document.evaluate(".//" + tag + classesToCheck, elm, null, 0, null);
+					}
+					while ((node = elements.iterateNext())) {
+						returnElements.push(node);
+					}
+					return returnElements;
+				};
+			} else {
+				getElementsByClassName = function (className, tag, elm) {
+					tag = tag || "*";
+					elm = elm || document;
+					var classes = className.split(" "),
+						classesToCheck = [],
+						elements = (tag === "*" && elm.all)? elm.all : elm.getElementsByTagName(tag),
+						current,
+						returnElements = [],
+						match;
+					for (var k=0, kl=classes.length; k<kl; k+=1){
+						classesToCheck.push(new RegExp("(^|\s)" + classes[k] + "(\s|$)"));
+					}
+					for (var l=0, ll=elements.length; l<ll; l+=1){
+						current = elements[l];
+						match = false;
+						for (var m=0, ml=classesToCheck.length; m<ml; m+=1){
+							match = classesToCheck[m].test(current.className);
+							if (!match) {
+								break;
+							}
+						}
+						if (match) {
+							returnElements.push(current);
+						}
+					}
+					return returnElements;
+				};
+			}
+			return getElementsByClassName(className, tag, elm);
+		}
+	};
+	
+	if (! AboutMe.addEvent) {
+		AboutMe.addEvent = function(elem, type, handler) {
+			if (elem == null || elem == undefined) return;
+			if (elem.addEventListener) {
+				elem.addEventListener(type, handler, false);
+			} else if (elem.attachEvent) {
+				elem.attachEvent("on" + type, handler);
+			} else {
+				elem["on"+type]=handler;
+			}
+		}
+	};
+
+	if (! AboutMe.log) {
+		AboutMe.debug = true;
+		AboutMe.log = function(mm) {
+			// wrapper for console.log
+			if (AboutMe.debug && window.console && console.log) {
+				console.log(mm);
+			}
+		}
+	};
+	
+	if (! AboutMe.Embed) {
+		AboutMe.Embed = function(o) {
+			var obj = this;
+			obj.o = o;
+			obj.o.template_id = 'aboutme-embed-' + obj.o.template;
+	
+			try {
+				obj.init();
+			} catch(e) {
+				AboutMe.log(e);
+				// TODO obj.destroy();
+			}
+			if (obj.valid) AboutMe.Embeds.push(obj);
+		};
+		AboutMe.Embed.prototype = {
+			goldenratio: 1.61803398875,
+			init: function() {
+				var obj = this;
+				AboutMe.log(obj.o.id);
+				obj.node = document.getElementById(obj.o.id);
+	
+				if (! obj.node) {
+					document.write('<div id="'+obj.o.id+'"></div>');
+					obj.node = document.getElementById(obj.o.id);
+				}
+				if (! obj.node) {
+					throw "About.Me Embed: failed to insert DOM node: "+obj.o.id;
+				}
+	
+				obj.node.className = obj.node.className + ' aboutme-embed';
+				obj.node.className = obj.node.className.replace(/ aboutme-(default|site)/g,'');
+				obj.node.className = obj.node.className + ' aboutme-'+obj.o.style;
+				
+				obj.insertCSS();
+				obj.node.style.visibility = 'hidden';
+				
+				obj.o.width = Number(obj.o.width);
+				if (isNaN(obj.o.width)) obj.o.width = 'auto';
+				if (obj.o.width != 'auto') {
+					obj.node.style.width = obj.o.width+'px';
+				}
+				obj.insertHTML();
+	
+				AboutMe.log(obj.o.background_image);
+				if (obj.o.background_image) {
+					obj.imgnode = AboutMe.$('aboutme-img',null,obj.node)[0];
+					obj.img = obj.imgnode.getElementsByTagName('img')[0];
+					if (obj.img) {
+						AboutMe.addEvent(obj.img,'load',function() {
+							obj.imgLoaded();
+						});
+						obj.img.src = obj.o.background_image;
+					}
+					obj.imgratio = obj.o.background_width / obj.o.background_height;
+					obj.pointbreak = Math.round(400 * obj.imgratio);
+					//AboutMe.log(obj.pointbreak);
+	
+					if (obj.o.width == 'auto') {
+	
+						// need to hide the node to get an unbiased width measurement from the parent
+						obj.node.style.display = 'none';
+						obj.offsetNode = obj.node;
+						while (! obj.width && obj.offsetNode.parentNode) {
+							// offsetNode doesn't has no offsetWidth - move up the DOM and check again
+							obj.offsetNode = obj.offsetNode.parentNode;
+							obj.width = obj.offsetNode.offsetWidth;
+							AboutMe.log(obj.width);
+						}
+						obj.node.style.display = 'block';
+	
+						// attach resize event to adjust the layout when window is resized
+						if (! obj.eventattached) {
+							obj.eventattached = true;
+							AboutMe.addEvent(window,'resize',function() {
+								clearTimeout(obj.timer);
+								//obj.setImageSize();
+								obj.timer = setTimeout(function() { 
+									AboutMe.log(obj.o.id); 
+									obj.setImageSize();
+								},10);
+							});
+						}
+					}
+	
+					obj.setImageSize();
+				}
+	
+				obj.node.style.visibility = 'inherit';
+				obj.valid = true;
+				if (typeof AboutMe.embed_callback == 'function') AboutMe.embed_callback.call(obj);
+			},
+			insertCSS: function() {
+				var obj = this;
+				var css_id = obj.o.id+'-css';
+				var css = document.getElementById(css_id);
+				if (css) return;
+	
+				css = document.createElement('style');
+				css.type = 'text/css';
+				css.id = css_id;
+				if (css.styleSheet) {
+					css.styleSheet.cssText = obj.o.css;
+				} else {
+					css.appendChild(document.createTextNode(obj.o.css));
+				}
+				document.getElementsByTagName('head')[0].appendChild(css);
+			},
+			insertHTML: function() {
+				var obj = this;
+				obj.node.innerHTML = obj.o.html;
+			},
+			setImageSize: function() {
+				var obj = this;
+				if (! obj.o.background_image) return;
+	
+				if (obj.o.width == 'auto') {
+					obj.width = obj.offsetNode.offsetWidth;
+				} else {
+					obj.width = obj.node.offsetWidth;
+				}
+				
+				if (obj.width <= obj.pointbreak) {
+					obj.o.layout = 'vertical';
+				} else {
+					obj.o.layout = 'horizontal';
+				}
+				obj.node.className = obj.node.className.replace(/ aboutme-layout-[^ ]+/g,'');
+				obj.node.className = obj.node.className + ' aboutme-layout-'+obj.o.layout;
+	
+				var w = obj.o.background_width,
+					h = obj.o.background_height,
+					ww, hh;
+				
+				switch(obj.o.layout) {
+					case 'horizontal':
+						ww = Math.round(Math.min(w, obj.width - (obj.width / obj.goldenratio)));
+						// obj.width - (obj.width / obj.goldenratio)
+						// ^ column is divided by the golden ratio, and the image is set to the smaller portion of that division
+						// Math.min(w, ...)
+						// ^ but image is never larger than its native size
+						hh = Math.round(ww / obj.imgratio);
+						obj.imgnode.style.width = ww+'px';
+						//obj.img.style.width = ww+'px';
+						//obj.img.style.height = hh+'px';
+						break;
+					case 'vertical':
+						/* if (w * obj.goldenratio > h) {
+							ww = Math.round(Math.min(w, obj.width));
+							// ^ image is set to column width, but never larger than its native size
+							if (obj.o.style == 'default') ww = ww - 22;
+							hh = Math.round(ww / obj.imgratio);
+						} else {
+							hh = Math.round(Math.min(obj.width,h));
+							ww = Math.round(hh * obj.imgratio);
+						} */
+						obj.imgnode.style.width = 'auto';
+						//obj.img.style.width = ww+'px';
+						//obj.img.style.height = hh+'px';
+						break;
+				
+				}
+				
+				if (obj.o.afterImageSize) obj.o.afterImageSize.call(obj);
+			},
+			imgLoaded: function() {
+				var obj = this;
+				AboutMe.log('embed img loaded');
+				if (typeof AboutMe.embed_imgloaded_callback == 'function') AboutMe.embed_imgloaded_callback.call(obj);
+			
+			}
+		}
+	};
+	
+	
+	new AboutMe.Embed({
+		id: 'aboutme-joaoluis28-1375795775841301',
+		user_name: 'joaoluis28',
+		background_image: 'http://d13pix9kaak6wt.cloudfront.net/background/joaoluis28_1325011302_63.jpg', 
+		background_width: 1575,
+		background_height: 1050,
+		template: 'default',
+		style: 'site',
+		width: 'auto',
+		css: '/* about.me embed.css *//* reset for aboutme-embed */#aboutme-joaoluis28-1375795775841301 div,#aboutme-joaoluis28-1375795775841301 span,#aboutme-joaoluis28-1375795775841301 img {margin: 0;padding: 0;border: 0;outline: 0;font-weight: inherit;font-style: inherit;font-size: 100%;font-family: inherit;vertical-align: baseline;text-align: left;background: none;}/* base styles for aboutme-embed */.aboutme-embed#aboutme-joaoluis28-1375795775841301 {margin: 10px 0;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-img img {display: block;border: 0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;width: 100%;margin-bottom: 8px;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-name {font-size: 140%;font-weight: bold;margin-bottom: 4px;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-headline {font-size: 120%;margin-bottom: 8px;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-bio {margin-bottom: 15px;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-bio p {margin: 0;margin-bottom: 8px;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps {}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a {border: 0 !important;display: inline-block !important;width: 32px !important;height: 32px !important;margin: 0 2px 5px 0 !important;padding: 0 !important;text-decoration: none !important;background-repeat: no-repeat !important;background-position: left top !important;}.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-facebook { background-image: url(http://dcbdluf1ahqio.cloudfront.net/facebook/32x32.png); }.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-twitter { background-image: url(http://dcbdluf1ahqio.cloudfront.net/twitter/32x32.png); }.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-googleplus { background-image: url(http://dcbdluf1ahqio.cloudfront.net/googleplus/32x32.png); }.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-linkedin { background-image: url(http://dcbdluf1ahqio.cloudfront.net/linkedin/32x32.png); }.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-blogger { background-image: url(http://dcbdluf1ahqio.cloudfront.net/blogger/32x32.png); }.aboutme-embed#aboutme-joaoluis28-1375795775841301 .aboutme-apps a.app-youtube { background-image: url(http://dcbdluf1ahqio.cloudfront.net/youtube/32x32.png); }/* styles for horizontal layout */.aboutme-layout-horizontal#aboutme-joaoluis28-1375795775841301 .aboutme-content {display: table;width: 100%;}.aboutme-layout-horizontal#aboutme-joaoluis28-1375795775841301 .aboutme-img {display: table-cell;vertical-align: top;padding-right: 15px;margin-bottom: 0;}.aboutme-layout-horizontal#aboutme-joaoluis28-1375795775841301 .aboutme-img img {margin-bottom: 0;}.aboutme-layout-horizontal#aboutme-joaoluis28-1375795775841301 .aboutme-text {display: table-cell;vertical-align: top;}',
+		html: '<div xmlns="http://www.w3.org/1999/xhtml" class="aboutme-content"><div class="aboutme-img"><a href="http://about.me/joaoluis28" target="_top"><img /></a></div><div class="aboutme-text"><div class="aboutme-name"><a href="http://about.me/joaoluis28" target="_top">João Luís de Almeida Machado</a></div><div class="aboutme-headline">www.vithais.com.br</div><div class="aboutme-bio"><p>Nascido em Caçapava-SP, Casado, pai de dois filhos; Membro da Academia Caçapavense de Letras; Doutor em Educação pela PUC-SP; Mestre em Educação, Arte e História da Cultura pela Univ. Presbiteriana Mackenzie (SP); Graduado em História pela Univap (SP); Gerente de Tecnologia Educacional do Sistema de Ensino Poliedro; Autor dos livros "Na Sala de Aula com a Sétima Arte" (Intersubjetiva/2008), "O Prazer de Aprender a Aprender" (Multifoco/2010) e "O Professor Zen" (Amazon/2012); Responsável pelo site Vithais (www.vithais.com.br); Professor Universitário e Pesquisador tendo atuado pelo Senac-SP, Unitau, Univap, Faculdade Bilac; Professor de Ensino Fundamental e Médio.</p></div><div class="aboutme-apps"><a href="http://www.facebook.com/joaoluis28" class="app-facebook" title="João Luís Almeida Machado" target="_top"> </a><a href="http://www.twitter.com/joaoluis28" class="app-twitter" title="Twitter" target="_top"> </a><a href="http://plus.google.com/110236195423030107488/" class="app-googleplus" title="Google+" target="_top"> </a><a href="http://www.linkedin.com/in/joaoluis28" class="app-linkedin" title="LinkedIn" target="_top"> </a><a href="http://vithais.blogspot.com" class="app-blogger" title="Blogger" target="_top"> </a><a href="http://www.youtube.com/user/joaoluis28" class="app-youtube" title="YouTube" target="_top"> </a></div></div></div>'
+	});
+
+})(this, this.document);
+
